@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { loginSuccess, authError } from '../store/authSlice';
-import axios from 'axios';
+import api from '../api/axios';
 import { LogIn } from 'lucide-react';
 import './Auth.css';
 
@@ -16,7 +16,7 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5050/api/auth/login', { email, password });
+      const res = await api.post('/auth/login', { email, password });
       if (res.data.success) {
         dispatch(loginSuccess({ token: res.data.token, user: res.data.user }));
         navigate('/');

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { registerSuccess, authError } from '../store/authSlice';
-import axios from 'axios';
+import api from '../api/axios';
 import { UserPlus } from 'lucide-react';
 import './Auth.css';
 
@@ -17,7 +17,7 @@ export default function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5050/api/auth/register', { name, email, password });
+      const res = await api.post('/auth/register', { name, email, password });
       if (res.data.success) {
         dispatch(registerSuccess({ token: res.data.token, user: res.data.user }));
         navigate('/');
