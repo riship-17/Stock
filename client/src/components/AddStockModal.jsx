@@ -3,6 +3,7 @@ import { validateTicker, searchStocks } from '../api/stocks';
 import { addHolding } from '../api/holdings';
 import { usePortfolios } from '../hooks/usePortfolio';
 import { toInputDate } from '../utils/dateHelpers';
+import { formatCurrency } from '../utils/currency';
 import './AddStockModal.css';
 
 const STEPS = { TICKER: 1, DETAILS: 2, CONFIRM: 3 };
@@ -229,7 +230,7 @@ export default function AddStockModal({ onClose, onSuccess, defaultPortfolioId =
                   <span className="badge badge-neutral">{validationResult.exchange}</span>
                 </div>
                 <div className="add-stock-price">
-                  ₹{validationResult.currentPrice?.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                  {formatCurrency(validationResult.currentPrice, { currency: validationResult.currency || 'INR' })}
                   <span className="add-stock-current-label">Current Price</span>
                 </div>
               </div>
@@ -263,7 +264,9 @@ export default function AddStockModal({ onClose, onSuccess, defaultPortfolioId =
                   />
                 </div>
                 <div className="form-group">
-                  <label className="form-label" htmlFor="buy-price-input">Buy Price (₹)</label>
+                  <label className="form-label" htmlFor="buy-price-input">
+                    Buy Price ({validationResult.currency === 'USD' ? '$' : '₹'})
+                  </label>
                   <input
                     id="buy-price-input"
                     type="number"
@@ -319,7 +322,7 @@ export default function AddStockModal({ onClose, onSuccess, defaultPortfolioId =
               {quantity && buyPrice && (
                 <div className="add-stock-summary">
                   <span>Total Invested</span>
-                  <strong>₹{(parseFloat(quantity) * parseFloat(buyPrice)).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</strong>
+                  <strong>{formatCurrency(parseFloat(quantity) * parseFloat(buyPrice), { currency: validationResult.currency || 'INR' })}</strong>
                 </div>
               )}
             </>

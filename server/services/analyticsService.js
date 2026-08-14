@@ -45,6 +45,17 @@ function calcHoldingPnL(holding, quote) {
   };
 }
 
+// ─── Exchange Rates ───────────────────────────────────────────────────────────
+// Fallback static exchange rates for portfolio summarization.
+const EXCHANGE_RATES = {
+  USD: 83.50,
+  EUR: 90.00,
+  GBP: 105.00,
+  INR: 1.0,
+};
+
+const getExchangeRate = (currency) => EXCHANGE_RATES[currency?.toUpperCase()] || 1.0;
+
 // ─── Portfolio Summary ────────────────────────────────────────────────────────
 function calcPortfolioSummary(holdings, quotesMap) {
   let totalInvested = 0;
@@ -55,15 +66,18 @@ function calcPortfolioSummary(holdings, quotesMap) {
   const enrichedHoldings = holdings.map((h) => {
     const quote = quotesMap[h.ticker];
     const pnl = calcHoldingPnL(h, quote);
+    
+    // Convert to base currency (INR) for total aggregations
+    const rate = getExchangeRate(h.currency || quote?.currency || 'INR');
 
     if (pnl.currentValue !== null) {
-      totalInvested += pnl.investedAmount;
-      totalCurrentValue += pnl.currentValue;
-      totalTodayChange += pnl.todayChange;
+      totalInvested += pnl.investedAmount * rate;
+      totalCurrentValue += pnl.currentValue * rate;
+      totalTodayChange += pnl.todayChange * rate;
       validHoldings++;
     } else {
       // Use invested amount as fallback for total
-      totalInvested += h.buyPrice * h.quantity;
+      totalInvested += (h.buyPrice * h.quantity) * rate;
     }
 
     return { ...h, ...pnl, quote };

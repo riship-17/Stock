@@ -50,11 +50,11 @@ export default function StockDetailPage() {
 
               <div className="stock-detail-price-block">
                 <div className="stock-detail-price">
-                  {formatCurrency(quote.regularMarketPrice)}
+                  {formatCurrency(quote.regularMarketPrice, { currency: quote.currency || 'INR' })}
                 </div>
                 <div className={`stock-detail-change ${getPnLClass(quote.regularMarketChange)}`}>
                   {quote.regularMarketChange >= 0 ? '▲' : '▼'}
-                  {' '}{formatCurrency(Math.abs(quote.regularMarketChange))}
+                  {' '}{formatCurrency(Math.abs(quote.regularMarketChange), { currency: quote.currency || 'INR' })}
                   {' '}({formatPercent(Math.abs(quote.regularMarketChangePercent))}) today
                 </div>
               </div>
@@ -65,14 +65,14 @@ export default function StockDetailPage() {
 
       {!loading && quote && (
         <div className="stock-key-stats">
-          <StatBox label="Open" value={formatCurrency(quote.regularMarketOpen)} />
-          <StatBox label="Day High" value={formatCurrency(quote.regularMarketDayHigh)} />
-          <StatBox label="Day Low" value={formatCurrency(quote.regularMarketDayLow)} />
-          <StatBox label="Prev. Close" value={formatCurrency(quote.regularMarketPreviousClose)} />
+          <StatBox label="Open" value={formatCurrency(quote.regularMarketOpen, { currency: quote.currency || 'INR' })} />
+          <StatBox label="Day High" value={formatCurrency(quote.regularMarketDayHigh, { currency: quote.currency || 'INR' })} />
+          <StatBox label="Day Low" value={formatCurrency(quote.regularMarketDayLow, { currency: quote.currency || 'INR' })} />
+          <StatBox label="Prev. Close" value={formatCurrency(quote.regularMarketPreviousClose, { currency: quote.currency || 'INR' })} />
           <StatBox label="Volume" value={formatCompact(quote.regularMarketVolume)} />
           <StatBox label="Market Cap" value={quote.marketCap ? formatCompact(quote.marketCap) : '—'} />
-          <StatBox label="52W High" value={formatCurrency(quote.fiftyTwoWeekHigh)} />
-          <StatBox label="52W Low" value={formatCurrency(quote.fiftyTwoWeekLow)} />
+          <StatBox label="52W High" value={formatCurrency(quote.fiftyTwoWeekHigh, { currency: quote.currency || 'INR' })} />
+          <StatBox label="52W Low" value={formatCurrency(quote.fiftyTwoWeekLow, { currency: quote.currency || 'INR' })} />
           {quote.trailingPE && (
             <StatBox label="P/E (TTM)" value={quote.trailingPE?.toFixed(2)} />
           )}

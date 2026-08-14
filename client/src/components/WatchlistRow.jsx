@@ -46,7 +46,7 @@ export default function WatchlistRow({ item, onRemove, onBuy }) {
         <div className="watchlist-price-block">
           {hasPrice ? (
             <>
-              <div className="watchlist-price">{formatCurrency(quote.regularMarketPrice)}</div>
+              <div className="watchlist-price">{formatCurrency(quote.regularMarketPrice, { currency: quote.currency || 'INR' })}</div>
               <div className={`watchlist-change ${getPnLClass(quote.regularMarketChangePercent)}`}>
                 {formatPercent(quote.regularMarketChangePercent)} today
               </div>
@@ -60,7 +60,7 @@ export default function WatchlistRow({ item, onRemove, onBuy }) {
         {item.targetPrice && (
           <div className="watchlist-target">
             <span className="watchlist-target-label">Target</span>
-            <span className="watchlist-target-value">{formatCurrency(item.targetPrice)}</span>
+            <span className="watchlist-target-value">{formatCurrency(item.targetPrice, { currency: item.currency || 'INR' })}</span>
             {hasPrice && (
               <span className={`badge ${quote.regularMarketPrice <= item.targetPrice ? 'badge-gain' : 'badge-neutral'}`}>
                 {quote.regularMarketPrice <= item.targetPrice ? '✓ At target' : `${formatPercent(((item.targetPrice - quote.regularMarketPrice) / quote.regularMarketPrice) * 100)} away`}
@@ -119,7 +119,7 @@ export default function WatchlistRow({ item, onRemove, onBuy }) {
               />
             </div>
             <div className="form-group">
-              <label className="form-label">Buy Price (₹)</label>
+              <label className="form-label">Buy Price ({item.currency === 'USD' ? '$' : '₹'})</label>
               <input
                 type="number"
                 className="form-input"

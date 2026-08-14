@@ -11,25 +11,43 @@ export const DISPLAY_MODE = { FULL: 'full', LAKH: 'lakh', CRORE: 'crore' };
  * @param {number} options.decimals - Decimal places (default 2)
  * @param {boolean} options.signed - Show + prefix for positive
  */
-export function formatCurrency(value, { compact = false, decimals = 2, signed = false } = {}) {
+export function formatCurrency(value, { currency = 'INR', compact = false, decimals = 2, signed = false } = {}) {
   if (value == null || isNaN(value)) return '—';
 
   const absVal = Math.abs(value);
   const sign = value < 0 ? '-' : signed && value > 0 ? '+' : '';
-
-  if (compact) {
-    if (absVal >= 1e7) return `${sign}₹${(absVal / 1e7).toFixed(decimals)}Cr`;
-    if (absVal >= 1e5) return `${sign}₹${(absVal / 1e5).toFixed(decimals)}L`;
-    if (absVal >= 1e3) return `${sign}₹${(absVal / 1e3).toFixed(1)}K`;
+  const isINR = currency.toUpperCase() === 'INR';
+  const isUSD = currency.toUpperCase() === 'USD';
+  
+  // Try to use native symbol, otherwise fallback to code
+  let symbol = '₹';
+  if (!isINR) {
+    try {
+      const parts = new Intl.NumberFormat('en-US', { style: 'currency', currency }).formatToParts(0);
+      symbol = parts.find(p => p.type === 'currency').value;
+    } catch {
+      symbol = currency + ' ';
+    }
   }
 
-  // Indian number formatting (e.g. 1,23,456)
-  const formatted = absVal.toLocaleString('en-IN', {
+  if (compact) {
+    if (isINR) {
+      if (absVal >= 1e7) return `${sign}${symbol}${(absVal / 1e7).toFixed(decimals)}Cr`;
+      if (absVal >= 1e5) return `${sign}${symbol}${(absVal / 1e5).toFixed(decimals)}L`;
+    } else {
+      if (absVal >= 1e9) return `${sign}${symbol}${(absVal / 1e9).toFixed(decimals)}B`;
+      if (absVal >= 1e6) return `${sign}${symbol}${(absVal / 1e6).toFixed(decimals)}M`;
+    }
+    if (absVal >= 1e3) return `${sign}${symbol}${(absVal / 1e3).toFixed(1)}K`;
+  }
+
+  const locale = isINR ? 'en-IN' : 'en-US';
+  const formatted = absVal.toLocaleString(locale, {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   });
 
-  return `${sign}₹${formatted}`;
+  return `${sign}${symbol}${formatted}`;
 }
 
 /**

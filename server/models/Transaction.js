@@ -22,6 +22,10 @@ const TransactionSchema = new mongoose.Schema(
       type: String,
       default: '',
     },
+    currency: {
+      type: String,
+      default: 'INR',
+    },
     type: {
       type: String,
       enum: ['buy', 'sell'],

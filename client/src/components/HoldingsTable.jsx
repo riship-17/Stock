@@ -148,7 +148,7 @@ function HoldingRow({ holding: h, onDelete }) {
 
       {/* Avg Price */}
       <td className="text-right">
-        <span className="holding-number">{formatCurrency(h.buyPrice)}</span>
+        <span className="holding-number">{formatCurrency(h.buyPrice, { currency: h.currency || 'INR' })}</span>
       </td>
 
       {/* Current Price */}
@@ -156,24 +156,24 @@ function HoldingRow({ holding: h, onDelete }) {
         {hasError ? (
           <span className="holding-error-badge" title={h.error}>N/A</span>
         ) : (
-          <span className="holding-number">{formatCurrency(h.currentPrice)}</span>
+          <span className="holding-number">{formatCurrency(h.currentPrice, { currency: h.currency || 'INR' })}</span>
         )}
       </td>
 
       {/* Invested */}
       <td className="text-right">
-        <span className="holding-number muted">{formatCurrency(h.investedAmount)}</span>
+        <span className="holding-number muted">{formatCurrency(h.investedAmount, { currency: h.currency || 'INR' })}</span>
       </td>
 
       {/* Current Value */}
       <td className="text-right">
-        <span className="holding-number">{hasError ? '—' : formatCurrency(h.currentValue)}</span>
+        <span className="holding-number">{hasError ? '—' : formatCurrency(h.currentValue, { currency: h.currency || 'INR' })}</span>
       </td>
 
       {/* Absolute P&L */}
       <td className="text-right">
         <span className={`holding-number ${getPnLClass(h.absolutePnL)}`}>
-          {hasError ? '—' : formatCurrency(h.absolutePnL, { signed: true })}
+          {hasError ? '—' : formatCurrency(h.absolutePnL, { signed: true, currency: h.currency || 'INR' })}
         </span>
       </td>
 

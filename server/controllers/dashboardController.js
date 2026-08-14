@@ -13,9 +13,9 @@ const {
 const getDashboardSummary = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('virtualCash startingCash name role');
-    const portfolios = await Portfolio.find({ userId: req.user.id });
+    const portfolios = await Portfolio.find({ userId: req.user.id }).lean();
     const portfolioIds = portfolios.map(p => p._id);
-    const allHoldings = await Holding.find({ portfolioId: { $in: portfolioIds } });
+    const allHoldings = await Holding.find({ portfolioId: { $in: portfolioIds } }).lean();
 
     const cash = user ? user.virtualCash : 0;
     const startingCash = user ? user.startingCash : 0;
@@ -37,7 +37,7 @@ const getDashboardSummary = async (req, res) => {
           accountTotalPnL: totalAccountValue - startingCash,
           accountTotalPnLPercent:
             startingCash > 0 ? ((totalAccountValue - startingCash) / startingCash) * 100 : 0,
-          portfolios: portfolios.map((p) => ({ ...p.toObject(), holdingCount: 0 })),
+          portfolios: portfolios.map((p) => ({ ...p, holdingCount: 0 })),
           allocation: [],
           topMovers: { gainers: [], losers: [], todayGainers: [], todayLosers: [] },
           portfolioHistory: [],
@@ -75,7 +75,7 @@ const getDashboardSummary = async (req, res) => {
         holdings.forEach((h) => { portQuotes[h.ticker] = quotesMap[h.ticker]; });
         const summary = calcPortfolioSummary(holdings, portQuotes);
         return {
-          ...portfolio.toObject(),
+          ...portfolio,
           holdingCount: holdings.length,
           totalInvested: summary.totalInvested,
           totalCurrentValue: summary.totalCurrentValue,

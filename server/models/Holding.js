@@ -22,6 +22,10 @@ const HoldingSchema = new mongoose.Schema(
       type: String,
       default: '',
     },
+    currency: {
+      type: String,
+      default: 'INR',
+    },
     quantity: {
       type: Number,
       required: [true, 'Quantity is required'],
