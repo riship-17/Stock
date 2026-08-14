@@ -3,7 +3,7 @@ import { Menu, Search } from 'lucide-react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLoaded, authError } from './store/authSlice';
-import axios from 'axios';
+import api from './api/axios';
 import Sidebar from './components/Sidebar';
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
@@ -104,8 +104,7 @@ export default function App() {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-          const res = await axios.get('http://localhost:5050/api/auth/me');
+          const res = await api.get('/auth/me');
           if (res.data.success) {
             dispatch(userLoaded(res.data.data));
           }
