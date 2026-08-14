@@ -1,0 +1,124 @@
+/* WatchlistRow Styles */
+.watchlist-row {
+  border-bottom: 1px solid var(--border-light);
+  padding: var(--space-4) 0;
+  transition: background var(--transition);
+}
+
+.watchlist-row:last-child { border-bottom: none; }
+.watchlist-row:hover { background: var(--bg-hover); margin: 0 calc(-1 * var(--space-4)); padding: var(--space-4); border-radius: var(--radius-md); }
+
+.watchlist-row-main {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.watchlist-stock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 140px;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.watchlist-company {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: color var(--transition);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+.watchlist-stock:hover .watchlist-company { color: var(--accent); }
+
+.watchlist-price-block {
+  min-width: 100px;
+}
+
+.watchlist-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.watchlist-change {
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.watchlist-price-na {
+  font-size: 12px;
+  color: var(--loss-text);
+}
+
+.watchlist-target {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.watchlist-target-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.watchlist-target-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.watchlist-notes {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.watchlist-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+
+.watchlist-added {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.watchlist-buy-form {
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.watchlist-buy-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+@media (max-width: 768px) {
+  .watchlist-buy-grid { grid-template-columns: repeat(2, 1fr); }
+  .watchlist-row-main { gap: var(--space-3); }
+  .watchlist-notes { display: none; }
+}

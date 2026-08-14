@@ -1,0 +1,162 @@
+.trade-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.trade-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+
+.trade-cash-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-4);
+}
+
+.trade-cash-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.trade-cash-value {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.trade-cash-secondary {
+  text-align: right;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.side-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  margin: var(--space-3) 0;
+}
+
+.side-btn {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  border: 1.5px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  transition: all var(--transition-bounce);
+  cursor: pointer;
+}
+
+.side-btn.buy.active {
+  background: var(--gain-bg);
+  color: var(--gain-text);
+  border-color: var(--gain);
+}
+
+.side-btn.sell.active {
+  background: var(--loss-bg);
+  color: var(--loss-text);
+  border-color: var(--loss);
+}
+
+.side-btn:hover { transform: translateY(-2px); }
+.side-btn:active { transform: translateY(0); }
+
+.trade-form { display: flex; flex-direction: column; gap: var(--space-3); }
+
+.form-group { margin-bottom: var(--space-3); }
+
+.form-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); margin-bottom: var(--space-1); }
+
+.form-input {
+  width: 100%;
+  padding: var(--space-4) var(--space-5);
+  background: var(--bg-input);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  color: var(--text-primary);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.form-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+  background: white;
+}
+
+.form-input::placeholder { color: var(--text-muted); }
+
+.form-hint { font-size: 10px; color: var(--text-muted); margin-top: var(--space-1); }
+
+.trade-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-3); }
+
+.trade-live-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  letter-spacing: 0.05em;
+}
+
+.trade-estimate {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: var(--space-2);
+}
+
+.trade-estimate strong { color: var(--text-primary); font-size: 14px; }
+
+.trade-warn {
+  color: var(--loss);
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.trade-submit-btn {
+  width: 100%;
+  padding: var(--space-4) var(--space-6);
+  margin-top: var(--space-3);
+  font-size: 14px;
+}
+
+.trade-reset-btn {
+  width: 100%;
+  color: var(--text-muted);
+  padding: var(--space-4) var(--space-6);
+  margin-top: var(--space-2);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+/* Animated button styles within the trade panel */
+.trade-panel .btn-1:hover { box-shadow: 0 12px 30px rgba(29,78,214,0.3); }
+.trade-panel .btn-2:hover::after { opacity: 1; }
+.trade-panel .btn-3:active::after { width: 200px; height: 200px; opacity: 0; }
+.trade-panel .btn-4:hover { background: var(--accent-dark); transform: translateX(4px); }

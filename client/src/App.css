@@ -1,0 +1,32 @@
+/* App-level layout styles */
+.mobile-header {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-4);
+  height: var(--header-height);
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.mobile-header-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .mobile-header { display: flex; }
+}
+
+/* Smooth transitions on page change */
+.main-content { transition: none; }
+
+/* Print media */
+@media print {
+  .sidebar, .mobile-header { display: none; }
+  .main-content { margin-left: 0; }
+}

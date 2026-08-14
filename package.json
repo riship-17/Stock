@@ -1,0 +1,12 @@
+{
+  "name": "stock-tracker",
+  "version": "1.0.0",
+  "description": "MERN Stock Portfolio Tracker — Indian Market Focus",
+  "private": true,
+  "scripts": {
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm run dev",
+    "seed": "cd server && npm run seed",
+    "install:all": "cd server && npm install && cd ../client && npm install"
+  }
+}

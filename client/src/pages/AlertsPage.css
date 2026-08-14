@@ -1,0 +1,14 @@
+.alert-form { display: flex; gap: var(--space-2); flex-wrap: wrap; align-items: center; }
+@media (max-width: 768px) { .alert-form { flex-direction: column; align-items: stretch; } }
+
+/* Animated input buttons */
+.alert-form .btn-1 { margin-right: var(--space-2); }
+.alert-form .btn-2 { margin-left: var(--space-2); }
+
+/* Status buttons */
+.status-btns { display: flex; gap: var(--space-3); margin-top: var(--space-4); flex-wrap: wrap; }
+.status-btns .btn-3 { flex: 1; }
+.status-btns .btn-3:not(:first-child) { justify-self: flex-end; }
+
+/* Evaluate button */
+.evaluate-btn { width: 100%; padding: var(--space-4) var(--space-6); margin-top: var(--space-2); }

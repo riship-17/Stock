@@ -1,0 +1,10 @@
+.screener-filters { padding: var(--space-4) var(--space-5); }
+.screener-filter-row { display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: flex-end; }
+@media (max-width: 768px) { .screener-filter-row { flex-direction: column; } }
+
+/* Filter action button */
+.screen-btn { padding: var(--space-3) var(--space-5); font-size: 13px; }
+.screen-btn.btn-1 { margin-right: var(--space-3); }
+
+/* Sort and direction selects look better with some spacing */
+.form-group { margin-bottom: var(--space-3); }
